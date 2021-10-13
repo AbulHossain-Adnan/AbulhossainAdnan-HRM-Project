@@ -1,0 +1,89 @@
+@extends('layouts.Backend/master')
+@section('content')
+
+<div class="card">
+    <div class="card-header text-white bg-primary">User list</div>
+    <div class="card-body">
+    
+     <a class="btn btn-success" href="{{route('profile.create')}}">Add Profile</a>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Image</th>
+                <th scope="col">name</th>
+                <th scope="col">Department</th>
+                <th scope="col">position</th>
+                <th scope="col">status</th>
+                <th scope="col">action</th>
+                
+
+              </tr>
+            </thead>
+            <tbody>
+               
+                @foreach ($users as $user)
+              <tr>
+                <td>{{$loop->index+1}}</td>
+                <td>
+                  @if($user->profilee)
+                  <img src="{{asset('uploads/profile_photos')}}/{{$user->profilee->image}}" alt="sdfsdfsdf">
+                  @else
+                  <img src="{{asset('uploads/avatar')}}/img.jpg" width="100" alt="sdfsdfsdf">
+                  @endif
+                </td>
+                <td>{{$user->name}}</td>
+
+                <td>
+                  @if($user->profilee)
+                  {{$user->profilee->department}}
+                  @else
+                  <span class="badge badge-info">no profile</span>
+                  @endif
+                </td>
+                <td>
+                  @if($user->profilee)
+                  {{$user->profilee->position}}
+                  @else
+                  <span class="badge badge-info">no profile</span>
+                  @endif
+
+                </td>
+                <td>
+            
+                   @if($user->status==1) 
+                
+                  <span class="badge badge-success">active</span>
+                  @else
+                  <span class="badge badge-danger">inactive</span>
+                  
+                  @endif
+                </td>
+                
+              
+                <td>
+                  @if($user->status==1)
+                  <a class="btn btn-warning" href="#">MakeInactive</a>
+                  @else 
+                  <a class="btn btn-success" href="#">makeactive</a>
+                  @endif
+                  <a class="btn btn-primary" href="{{ route('user.show',$user->id) }}">edit/view</a>
+                  <a class="btn btn-danger" href="{{ route('post.show',$user->id) }}">delete</a>
+                 
+                  
+                 
+                </td>
+
+
+              </tr>
+              @endforeach
+              
+            
+            </tbody>
+          </table>
+    </div>
+  </div>
+
+
+
+@endsection

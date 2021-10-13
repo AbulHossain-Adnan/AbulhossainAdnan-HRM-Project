@@ -1,0 +1,15 @@
+                <a class="btn btn-primary btn-sm" href="{{ route('file.show',$file->id) }}"><i class="fa fa-edit">edit/view</i></a>
+                                          <a class="btn btn-success btn-sm" href="{{ route('download',$file->file) }}"><i class="fa fa-download">download</i></a>
+                                          <form id="delete-form.{{$file->id}}" action="{{route('file.destroy',$file->file)}}" method="POST" style="display:none;">
+                                            @csrf
+                                            @method('DELETE')
+                                          </form>
+                                   
+                                          <button type="button" class="btn btn-danger btn-sm"onclick="if(confirm('are you sure?you want to delete this file?')){
+                                            event.preventDefault();
+                                            document.getElementById('delete-form.{{$file->id}}').submit();
+                                          }else{
+                                              event.preventdefault();
+                                          }"><i class="fa fa-trash">delete</i></button>
+                                         
+                                       

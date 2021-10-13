@@ -1,0 +1,110 @@
+      <div class="card">
+                                
+                                    <div class="card border-success mb-3">
+                                    
+                                        <div class="card-body">
+                                            <div class="card">
+                                                <div class="card border-success mb-3">
+                                                    <div class="card-header text-white bg-primary">Notice Borad</div>
+                                                    <div class="card-body">
+                                                        @foreach ($notices as $notice)
+                                                        <table class="table">
+                                                            <thead>
+                                                              <tr>
+                                                                <td class="table-primary">{{$notice->created_at->diffForHumans()}}</td>
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody>    
+                                                                
+                                                              <tr>
+                                                               
+                                                              
+                                                                <td>
+                                                                 {{$notice->title}}::
+
+                                                                    {{$notice->description}}
+                                                                </td>
+                                                               
+                                                              </tr>
+                                                             
+                                                            </tbody>
+                                                          </table>
+                                                          @endforeach
+                                                    </div>
+                                                    <div class="card-header text-white bg-secondary"></div>
+                                                  </div>
+                                              </div>
+                                              
+                                              <div class="card text-center">
+                                                <div class="card border-success mb-3">
+                                                    <div class="card-header text-white bg-info">Upcomming Hol</div>
+                                                    <div class="card-body">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="table-danger" scope="row">day</th>
+                                                                    <td class="table-danger">satarday</td>
+                                                                 
+                                                                </tr>
+                                                              </thead>
+                                                              <tbody>
+                                                                <tr>
+                                                                  <th class="table-warning" scope="row">day</th>
+                                                                  <td class="table-warning">sunday</td>
+                                                                 
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="table-info" scope="row">day</th>
+                                                                    <td class="table-info">monday</td>
+                                                                
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="table-primary" scope="row">day</th>
+                                                                    <td class="table-primary">nonday</td>
+                                                                
+                                                                </tr>
+                                                              </tbody>
+                                                          </table>
+                                                    </div>
+                                                    <div class="card-header text-white bg-secondary"></div>
+                                                  </div>
+                                              </div>
+                                              
+                                              <div class="card text-center">
+                                                <div class="card border-success mb-3">
+                                                    <div class="card-header text-white bg-warning">Header</div>
+                                                    <div class="card-body">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                  <th scope="col">Name::</th>
+                                                                  <th scope="col">Admam</th>
+                                                                 
+                                                                </tr>
+                                                              </thead>
+                                                              <tbody>
+                                                                <tr>
+                                                                  <th scope="row">email</th>
+                                                                  <td>adnan@gmail.com</td>
+                                                                 
+                                                                </tr>
+                                                                <tr>
+                                                                  <th scope="row">address</th>
+                                                                  <td>saturia manikgang</td>
+                                                                
+                                                                </tr>
+                                                                <tr>
+                                                                  <th scope="row">contact</th>
+                                                                  <td>03123131</td>
+                                                                
+                                                                </tr>
+                                                              </tbody>
+                                                          </table>
+                                                    </div>
+                                                    <div class="card-header text-white bg-secondary"></div>
+                                                  </div>
+                                              </div>
+                                        </div>
+                                        <div class="card-header text-white bg-success"></div>
+                                      </div>
+                                </div>
