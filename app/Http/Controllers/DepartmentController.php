@@ -16,9 +16,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        return view('department.index',[
-            'departments'=>Departmentt::all()
-        ]);
+       $data=Departmentt::OrderBy('id', 'DESC')->get();
+       return Response()->json($data);
     }
 
     /**
@@ -28,68 +27,48 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return view('department.create');
+        return view('department.index',[
+            'departments'=>Departmentt::all()
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+
+
+
         $request->validate([
             'department'=>'required',
         ]);
         Departmentt::insert([
-            'department'=>$request->department,
+            'department'=>$request->input('department'),
             'created_at'=>Carbon::now(),
         ]);
-        return redirect()->route('department.index');
+       return Response()->json(['success'=>'succfully done']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
+    
         $data=Departmentt::findOrFail($id);
     return Response()->json($data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
+      
+
        
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function destroy($id)
     {
         Departmentt::findOrFail($id)->delete();
@@ -98,13 +77,13 @@ class DepartmentController extends Controller
 
     }
     public function updated(request $request){
-        $dep_id=$request->dataid;
-        Departmentt::findOrFail($dep_id)->update([
-            'department'=>$request->department
-
+        $dataid=$request->id;
+        $data=Departmentt::findOrFail($dataid);
+         $data->update([
+            'department'=>$request->input('department'),
+            'created_at'=>Carbon::now(),
         ]);
-         toast('department update Successfully','success');
-        return back()->with('message','data updated succfully');
+       return Response()->json(['success'=>'succfully done']);
     }
 
 }

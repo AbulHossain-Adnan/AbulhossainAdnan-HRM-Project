@@ -9,56 +9,34 @@ use Carbon\Carbon;
 
 class NoticeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         
+      $data=Notice::OrderBy('id','DESC')->get();
+      return response()->json($data);
       
-        return view('Notice.index',[
-            'notices'=>Notice::OrderBy('id','desc')->get(),
-        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        return view('Notice.create');
+        return view('Notice.index');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function store(Request $request)
     {
-        $request->validate([
-            'title'=>'required',
-            'textarea'=>'required',
-        ]);
+  
         Notice::insert([
-            'title'=>$request->title,
-            'description'=>$request->textarea,
+            'title'=>$request->input('title'),
+            'description'=>$request->input('description'),
             'created_at'=>Carbon::now(),
         ]);
-       return back();
+       return response()->json(['success'=>'succfully']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
       return view('Notice.show',[
@@ -66,47 +44,30 @@ class NoticeController extends Controller
       ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        return view('Notice.edit');
+        $data=Notice::findOrFail($id);
+        return response()->json($data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    public function updated(Request $request)
     {
    
-        $request->validate([
-            'title'=>'required',
-            'textarea'=>'required',
+        $dataid=$request->input('id');
+        $data=Notice::findOrFail($dataid);
+        $data->update([
+            'title'=>$request->input('title'),
+            'description'=>$request->input('description'),
         ]);
-        Notice::find($id)->update([
-            'title'=>$request->title,
-            'description'=>$request->textarea,
-        ]);
-        return redirect()->route('notice.index');
+        return response()->json(['success'=>'succfully']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        Notice::find($id)->delete();
-        return redirect()->route('notice.index');
+        Notice::findOrFail($id)->delete();
+        return response()->json(['success'=>'succfully']);
     }
 }

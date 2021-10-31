@@ -27,12 +27,21 @@
                                     </div>
                                     <div class="form-group row">
                                       <div class="col-sm-10">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+<button type="submit" class="btn btn-primary">
                                       </div>
                                     </div>
                                   </form>
                             </div>
-                          </div>
+         <!DOCTYPE html>
+                          <html>
+                          <head>
+                              <meta charset="utf-8">
+                              <title><!doctype html></title>
+                          </head>
+                          <body>
+                          
+                          </body>
+                          </html>                 </div>
                         </div>
                 </div>
                 <div class="card-footer bg-transparent border-success"></div>

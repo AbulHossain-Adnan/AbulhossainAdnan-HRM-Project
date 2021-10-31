@@ -21,7 +21,7 @@
                    
                   </div>
                  
-                  <label>User id</label>
+                  <label>User Name</label>
                   @error('user_id')
                   <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -80,7 +80,7 @@
                     @error('position')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
-                    <input type="text" class="form-control" id="exampleInputPassword1" name="position" placeholder="position">
+                    <input type="text" class="form-control" id="exampleInputPassword1" name="position" placeholder="exmpl:Senior/Junior/mid-level">
                   </div>
                
                   <div class="form-group">
@@ -103,7 +103,7 @@
                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
-                  <a class="btn btn-info" href="{{ route('profile.index') }}">Back</a>
+                  <a class="btn btn-info" href="{{ route('user.index') }}">Back</a>
                 </form>
           </div>
         </div>

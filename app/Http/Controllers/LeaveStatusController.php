@@ -10,18 +10,14 @@ class LeaveStatusController extends Controller
 {
     public function active($id){
        $data=Leave::find($id);
-       if($data->status==1){
-           $data->status=0;
-           $data->save();
-       }
+       $data->update(['status'=>3]);
+ toast('Leave Request Successfully Cancled','success');
        return back();
     }
     public function inactive($id){
         $data=Leave::find($id);
-        if($data->status==0){
-            $data->status=1;
-            $data->save();
-        }
+        $data->update(['status'=>1]);
+        toast('Leave Request Successfully Approved','success');
         return back();
     }
   

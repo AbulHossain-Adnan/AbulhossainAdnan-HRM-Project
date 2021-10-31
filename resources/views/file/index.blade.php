@@ -295,8 +295,8 @@
                                         <th scope="col">title</th>
                                         <th scope="col">file</th>
                                         <th scope="col">user id</th>
-                                        <th scope="col">created at</th>
-                                    
+                                        <th scope="col">recevedform</th>
+                                        <th scope="col">recevedTime</th>
                                         <th scope="col">action</th>
                                         
                         
@@ -317,22 +317,25 @@
                                        {{$file->title}}
                                         </td>
                                         <td>
-                                       {{$file->title}}
-                                        </td>
+                            <img src="{{asset('storege/'.$file->file)}}" width="100" alt="file">
+                          </td>
                                         <td>
                                        {{$file->user_id}}
                                         </td>
+                                           <td>
+                                       {{$file->sender_name}}
+                                        </td>
                                         <td>
-                                        {{ \Carbon\Carbon::now()}}
+                                        {{$file->created_at->diffForHumans()}}
                                         </td>
                                       
                                       
                                         <td>
                                          
                                         
-                                          <a class="btn btn-primary btn-sm" href="{{ route('file.show',$file->id) }}"><i class="fa fa-edit">edit/view</i></a>
+                                         <!--  <a class="btn btn-primary btn-sm" href="{{ route('file.show',$file->id) }}"><i class="fa fa-edit">edit/view</i></a> -->
                                           <a class="btn btn-success btn-sm" href="{{ route('download',$file->file) }}"><i class="fa fa-download">download</i></a>
-                                          <form id="delete-form.{{$file->id}}" action="{{route('file.destroy',$file->file)}}" method="POST" style="display:none;">
+                                          <form id="delete-form.{{$file->id}}" action="{{route('file.destroy',$file->id)}}" method="POST" style="display:none;">
                                             @csrf
                                             @method('DELETE')
                                           </form>

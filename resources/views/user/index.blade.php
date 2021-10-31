@@ -273,7 +273,7 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">
-                      <a class="btn btn-success btn-bg" href="{{route('profile.create')}}"><i class="fas fa-user"></i>Add Epmloyee profile+</a>
+                      <a class="btn btn-success btn-sm" href="{{route('profile.create')}}"><i class="fas fa-user"></i>Add Epmloyee profile+</a>
                       <a href="#"></a>
                     </h1>
                    

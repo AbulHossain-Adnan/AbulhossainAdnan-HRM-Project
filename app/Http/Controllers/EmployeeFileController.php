@@ -7,88 +7,61 @@ use App\Http\Controllers\EmployeeFilecontroller;
 use App\User;
 use App\File;
 use Auth;
+use Carbon\Carbon;
 
 class EmployeeFileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
        
        
         return view('file.employee.index',[
-            'files'=>Auth::user()->files
+            'files'=>File::where('user_id',Auth::id())->OrderBy('id','DESC')->get()
         ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
+    public function create(){
         return view('file.employee.create',[
             'users'=>User::all()
+
         ]);
     }
+public function store(Request $request){
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+    $request->validate([
+'name'=>'required',
+'title'=>'required',
+'file'=>'required',
+'user_id'=>'required',
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+$profile_id=File::insertGetId([
+'name'=>$request->name,
+'title'=>$request->title,
+'file'=>$request->name,
+'user_id'=>$request->user_id,
+'sender_name'=>Auth::user()->name,
+'created_at'=>Carbon::now(),
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+]);
+$uploaded_photo=$request->file('file');
+$new_photo_name=$profile_id.'.'.$uploaded_photo->getClientOriginalExtension();
+$request->file->move('storege/',$new_photo_name);
+
+File::find($profile_id)->update([
+'file'=>$new_photo_name
+]);
+ toast('File  send  Successfully','success');
+return redirect()->route('employeefile.index');
+}
+
     public function destroy($id)
     {
-        //
+        $data=File::findOrFail($id);
+        unlink('storege/'.$data->file);
+        $data->delete();
+        return back();
     }
 }

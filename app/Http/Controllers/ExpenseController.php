@@ -15,9 +15,8 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        return view('expense.index',[
-            'expenses'=>Expense::all()
-        ]);
+       $data= Expense::OrderBy('id','DESC')->get();
+       return response()->json($data);
     }
 
     /**
@@ -27,26 +26,31 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        return view('expense.create');
+        return view('expense.index');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
-    {
-        //
+    { 
+     
+        $data=new Expense();
+       $data->item_name=$request->input('item_name');
+       $data->purchase_from=$request->input('purchase_from');
+       $data->purchase_date=$request->input('purchase_date');
+       $data->amount_price=$request->input('amount_price');
+
+       if($request->hasfile('file')){
+        $uploaded_photo=$request->file('file');
+        $new_photo_name=time().'.'.$uploaded_photo->extension();
+        $uploaded_photo->move(public_path('perchase_file/'),$new_photo_name);
+        $data->file=$new_photo_name;
+       }
+       $data->save();
+       return response()->json(['success'=>'succfully']);
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
@@ -60,7 +64,10 @@ class ExpenseController extends Controller
      */
     public function edit($id)
     {
-        //
+         $data=Expense::findOrFail($id);
+      
+       return response()->json($data);
+
     }
 
     /**
@@ -70,9 +77,23 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updated(Request $request)
     {
-        //
+        $data_id=$request->input('id');
+        $data=Expense::findOrFail($data_id);
+       $data->item_name=$request->input('item_name');
+       $data->purchase_from=$request->input('purchase_from');
+       $data->purchase_date=$request->input('purchase_date');
+       $data->amount_price=$request->input('amount_price');
+
+       if($request->hasfile('file')){
+        $uploaded_photo=$request->file('file');
+        $new_photo_name=time().'.'.$uploaded_photo->extension();
+        $uploaded_photo->move(public_path('perchase_file/'),$new_photo_name);
+        $data->file=$new_photo_name;
+       }
+       $data->update();
+       return response()->json(['success'=>'succfully']);
     }
 
     /**
@@ -83,6 +104,9 @@ class ExpenseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $dataid=Expense::findOrFail($id);
+        unlink('perchase_file/'.$dataid->file);
+        $dataid->delete();
+
     }
 }

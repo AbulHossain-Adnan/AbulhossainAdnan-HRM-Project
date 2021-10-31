@@ -1,7 +1,7 @@
 @extends('layouts.employee.master')
 @section('content')
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-12">
       <div class="card">
         <div class="card-body">
             <div class="card border-primary mb-3">
@@ -11,30 +11,31 @@
                         <div class="col-sm-10">
                           <div class="card">
                             <div class="card-body">
-                                <form action="{{route('file.store')}}" method="post" enctype='multipart/form-data'>
+                                <form action="{{route('employeefile.store')}}" method="post" enctype='multipart/form-data'>
                                     @csrf
                                     <div class="form-group row">
-                                      <label for="inputEmail3" class="col-sm-2 col-form-label">name**</label>
+                                      <label for="inputEmail3" class="col-sm-2 col-form-label">File_name</label>
                                       <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputEmail3" name="name" placeholder="name">
+                                        <input type="text" class="form-control" id="inputEmail3" name="name" placeholder="Enter file name">
                                       </div>
                                     </div>
                                     <div class="form-group row">
-                                      <label for="inputEmail3" class="col-sm-2 col-form-label">Title**</label>
+                                      <label for="inputEmail3" class="col-sm-2 col-form-label">File_Title</label>
                                       <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputEmail3" name="title" placeholder="title">
+                                        <input type="text" class="form-control" id="inputEmail3" name="title" placeholder="Enter title name">
                                       </div>
                                     </div>
                                     <div class="form-group row">
-                                      <label for="inputEmail3" class="col-sm-2 col-form-label">User id</label>
+                                      <label for="inputEmail3" class="col-sm-2 col-form-label">User_Name</label>
                                       <div class="col-sm-10">
                                       <select class="form-control" id="exampleInputEmail1"  aria-describedby="emailHelp" name="user_id" >
                         
                                       <option value="">select one</option>
-                                      @foreach ($users as $user): ?>
-                                      <option value="{{$user->id}}">{{$user->name}}</option>
+                                      @foreach ($users as $user)
+                                      <option value="{{$user->id}}  ">{{$user->name}}  </option>
                                       @endforeach
-                                    </select>
+                                                                            
+                               </select>
 
                                       </div>
                                     </div>

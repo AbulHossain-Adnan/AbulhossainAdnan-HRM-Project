@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLeavesTable extends Migration
+class CreateHolidaysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateLeavesTable extends Migration
      */
     public function up()
     {
-        Schema::create('leaves', function (Blueprint $table) {
+        Schema::create('holidays', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->boolean('status')->default(0)->nullable();
-            $table->datetime('startdate');
-            $table->datetime('enddate')->nullable();
-            $table->string('leavetype');
-            $table->string('leavereasion');
+            $table->string('title');
+            $table->date('date');
+            $table->string('day');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateLeavesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leaves');
+        Schema::dropIfExists('holidays');
     }
 }

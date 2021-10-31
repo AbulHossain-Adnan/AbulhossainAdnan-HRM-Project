@@ -6,19 +6,21 @@
     <div class="card">
       <div class="card-body">
         <div class="card">
-          <div class="card-header text-white bg-primary">Department List</div>
+          <div class="card-header text-white bg-primary">Holiday List</div>
           <div class="card-body">
             
             <div class="row">
               <div class="col-sm-12">
                 <div class="card">
                   <div class="card-body">
-                    <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#addmodal" style="float: right;" href="{{ route('department.create') }}">Add department+</a>
+                    <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#addmodal" style="float: right;" href="">Add New Holiday+</a>
                     <table class="table table-bordered">
                       <thead>
                         <tr>
                           <th scope="col">id</th>
-                          <th scope="col">Department</th>
+                          <th scope="col">title</th>
+                          <th scope="col">date</th>
+                          <th scope="col">day</th>
                           <th scope="col">action</th>
                         </tr>
                       </thead>
@@ -41,19 +43,33 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Department</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Holiday</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="formdata" method="post" action="">
+        <form id="formdata" action="" method="post" enctype="multipart/form-data">
           @csrf
-          <div class="form-group">
-            <label for="exampleInputEmail1">Department Name</label>
-            <input type="text" class="form-control" id="departmentid" name="department" aria-describedby="emailHelp" placeholder="Enter department name">
-            
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="titleid" name="title" placeholder="Enter Item Name">
+            </div>
           </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Date </label>
+            <div class="col-sm-10">
+              <input type="date" class="form-control" id="dateid" name="date" placeholder="Enter Purchase From">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Day**</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="dayid" name="day" placeholder="enter day">
+            </div>
+          </div>
+ 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save changes</button>
@@ -69,22 +85,37 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Department</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="formdata2" method="post" action="">
+                <form id="formdata2" action="" method="post" >
           @csrf
-          <div class="form-group">
-            <label for="exampleInputEmail1">Department Name</label>
-            <input type="text" class="form-control" id="departmentid2" name="department" aria-describedby="emailHelp">
-            <input type="hidden" name="id" id="heddenid">
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="titleid2" name="title" placeholder="Enter Item Name">
+            </div>
           </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Date </label>
+            <div class="col-sm-10">
+              <input type="date" class="form-control" id="dateid2" name="date" placeholder="Enter Purchase From">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Day**</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="dayid2" name="day" placeholder="enter day">
+              <input type="hidden" name="id" id="hiddenid2">
+            </div>
+          </div>
+ 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
           </div>
         </form>
       </div>
@@ -92,20 +123,25 @@
     </div>
   </div>
 </div>
-<script>
 
-function departmentalldata(){
+
+<!-- script for all data -->
+<script>
+function holidayalldata(){
 $.ajax({
 type:'GET',
 datatype:'json',
-url:"/department",
+url:"/holiday",
 success:function(data){
 let rows=""
 $.each(data, function(key , value){
+  console.log(value)
 rows+=`
 <tr>
   <td>${value.id}</td>
-  <td>${value.department}</td>
+  <td>${value.title}</td>
+  <td>${value.date}</td>
+  <td>${value.day}</td>
   <td>
     <button class="btn btn-primary btn-sm" type="button" data-id=""   id="departmentedit" onclick="editdata(${value.id})">show//edit</button>
     <button type="button" value="${value.id}" class="btn btn-danger btn-sm" id="departmentdelete">delete</button>
@@ -120,29 +156,32 @@ $('tbody').html(rows)
 }
 })
 }
-departmentalldata();
+holidayalldata();
 </script>
-
-
 <!-- script for store data -->
 <script>
 $(document).ready(function(){
 $('body').on('submit','#formdata',function(e){
 e.preventDefault();
 let formdata = new FormData($('#formdata')[0]);
-
 $.ajax({
 type:'POST',
 datatype:'json',
 data:formdata,
-url:"/department",
+url:"/holiday",
 contentType: false,
 processData: false,
 success:function(data){
+console.log(data)
 $('#addmodal').modal('hide')
-departmentalldata();
-$('#departmentid').val('')
+holidayalldata();
+$('#addmodal').modal('hide')
+$('#titleid').val('')
+$('#dateid').val('')
+$('#dayid').val('')
 
+
+$('#departmentid').val('')
 const Toast = Swal.mixin({
 toast: true,
 position: 'top-end',
@@ -158,35 +197,46 @@ Toast.fire({
 icon: 'success',
 title: 'Data added succesflly'
 })
-
 }
 })
 })
 })
 </script>
+
+
+
 <!-- script for edit data -->
 <script>
 function editdata(id){
 $.ajax({
 type:'GET',
 datatype:'json',
-url:"/department/"+id+"/edit",
+url:"/holiday/"+id+"/edit",
 success:function(response){
 $('#editmodal').modal('show')
-$('#departmentid2').val(response.department)
-$('#heddenid').val(response.id)
+$('#titleid2').val(response.title)
+$('#dateid2').val(response.date)
+$('#dayid2').val(response.day)
+$('#amount_priceid1').val(response.amount_price)
+$('#hiddenid2').val(response.id)
+
+
 }
 })
 }
+         
+          
+          
+          
+          
 </script>
-
 <!-- script for update -->
 <script>
 $(document).ready(function(){
 $('body').on('submit','#formdata2', function(e){
 e.preventDefault();
 let formdata2 = new FormData($('#formdata2')[0]);
-id =$('#heddenid').val();
+id =$('#heddenid2').val();
 $.ajaxSetup({
 headers: {
 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -195,12 +245,16 @@ headers: {
 $.ajax({
 type:'POST',
 data:formdata2,
-url:"/department/updated",
+url:"/holiday/updated",
 contentType: false,
 processData: false,
 success:function(response){
-departmentalldata();
+holidayalldata();
 $('#editmodal').modal('hide')
+$('#titleid2').val('')
+$('#dateid2').val('')
+$('#dayid2').val('')
+$('#hiddenid2').val('')
 const Toast = Swal.mixin({
 toast: true,
 position: 'top-end',
@@ -221,6 +275,7 @@ title: 'Data update succesflly'
 })
 })
 </script>
+<!-- script for delete -->
 <script>
 $(document).ready(function(){
 $('body').on('click','#departmentdelete',function(){
@@ -242,18 +297,17 @@ headers: {
 });
 $.ajax({
 type:'DELETE',
-url:"/department/"+id,
+url:"/holiday/"+id,
 success:function(){
 Swal.fire(
 'Deleted!',
 'Your file has been deleted.',
 'success'
 ).then((result)=>{
-departmentalldata();
+holidayalldata();
 })
 }
 })
-
 }
 })
 })

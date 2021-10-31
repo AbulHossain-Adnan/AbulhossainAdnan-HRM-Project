@@ -5,7 +5,7 @@
       <div class="card">
         <div class="card-body">
             <div class="card border-primary mb-3">
-                <div class="card-header text-white bg-info">Leave Request</div>
+                <div class="card-header text-white bg-info">Leave Request+</div>
                 <div class="card-body">
                     <div class="row m-auto">
                         <div class="col-sm-10">
@@ -14,13 +14,23 @@
                                 <form action="{{route('leave.store')}}" method="post">
                                     @csrf
                                     <div class="form-group row">
-                                      <label for="inputEmail3" class="col-sm-2 col-form-label">Leave Date**</label>
+                                      <label for="inputEmail3" class="col-sm-2 col-form-label">Start leave*</label>
                                       <div class="col-sm-10">
                                         @error('ldate')
                                         <span class="text-danger">{{ $message }}</span>
                                           
                                       @enderror
-                                        <input type="date" class="form-control" id="inputEmail3" name="ldate">
+                                        <input type="date" class="form-control" id="inputEmail3" name="startdate">
+                                      </div>
+                                    </div>
+                                     <div class="form-group row">
+                                      <label for="inputEmail3" class="col-sm-2 col-form-label">End leave*</label>
+                                      <div class="col-sm-10">
+                                        @error('ldate')
+                                        <span class="text-danger">{{ $message }}</span>
+                                          
+                                      @enderror
+                                        <input type="date" class="form-control" id="inputEmail3" name="enddate">
                                       </div>
                                     </div>
                                   

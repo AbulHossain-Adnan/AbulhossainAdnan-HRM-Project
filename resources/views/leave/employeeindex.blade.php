@@ -46,7 +46,7 @@
       
           <!-- Nav Item - Dashboard -->
           <li class="nav-item active">
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="{{url('employee/dashboard')}}">
                   <i class="fas fa-fw fa-tachometer-alt"></i>
                   <span>Dashboard</span></a>
           </li>
@@ -68,7 +68,7 @@
                   <div class="bg-white py-2 collapse-inner rounded">
                       {{-- <a class="collapse-item" href="{{route('user.create')}}">user-create</a>
                       <a class="collapse-item" href="{{route('user.index')}}">user-edit</a> --}}
-                      <a class="collapse-item" href="{{route('leave.create')}}">Leave Request</a>
+                      <a class="collapse-item" href="{{route('leave.create')}}">Leave Request++</a>
                       <a class="collapse-item" href="{{route('leave.index')}}">Leave-list</a>
 
                   </div>
@@ -76,22 +76,12 @@
           </li>
       
           <!-- Nav Item - Utilities Collapse Menu -->
-          <li class="nav-item">
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                  aria-expanded="true" aria-controls="collapseUtilities">
-                  <i class="fas fa-fw fa-wrench"></i>
-                  <span>File management</span>
-              </a>
-              <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                  data-parent="#accordionSidebar">
-                  <div class="bg-white py-2 collapse-inner rounded">
-                   
-                      <a class="collapse-item" href="">file list</a>
-                    
-                    
-                  </div>
-              </div>
-          </li>
+         <li class="nav-item active">
+       
+          <a class="nav-link" href="{{route('employeefile.index')}}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>File management</span></a>
+    </li>
       
           <!-- Divider -->
           <hr class="sidebar-divider">
@@ -387,7 +377,7 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">
-                      <a class="btn btn-success" href="{{route('leave.create')}}">Leave request</a>
+                      <a class="btn btn-success btn-sm" href="{{route('leave.create')}}">Leave request++</a>
                       <a href="#"></a>
                     </h1>
                    
@@ -405,7 +395,9 @@
                                     <thead>
                                       <tr>
                                         <th scope="col">id</th>
-                                        <th scope="col">leave date</th>
+                                        <th scope="col">start leave</th>
+                                        <th scope="col">end leave</th>
+
                                         <th scope="col">leave type</th>
                                         <th scope="col">reasion</th>
                                         <th scope="col">Apply date</th>
@@ -413,7 +405,6 @@
                                         
                                         <th scope="col">action</th>
                                         
-                        
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -422,7 +413,10 @@
                                       <tr>
                                         <td>{{$loop->index+1}}</td>
                                         <td>
-                                        {{$leave->leavedate}}
+                                        {{$leave->startdate}}
+                                        </td>
+                                        <td>
+                                        {{$leave->enddate}}
                                         </td>
                                         <td>{{$leave->leavetype}}</td>
                                         <td>{{$leave->leavereasion}}</td>
@@ -446,18 +440,18 @@
                                       
                                         
                                          
-                                          <a class="btn btn-primary" href="{{ route('leave.show',$leave->id) }}">edit/view</a>
+                                          <a class="btn btn-primary btn-sm" href="{{ route('leave.show',$leave->id) }}">edit/view</a>
                                           <form id="delete-form.{{$leave->id}}" action="{{route('leave.destroy',$leave->id)}}" method="POST" style="display:none;">
                                             @csrf
                                             @method('DELETE')
                                           </form>
                                    
-                                          <button type="button" class="btn btn-danger"onclick="if(confirm('are you sure?you want to delete this file?')){
+                                          <button type="button" class="btn btn-danger btn-sm"onclick="if(confirm('are you sure?you want to delete this file?')){
                                             event.preventDefault();
                                             document.getElementById('delete-form.{{$leave->id}}').submit();
                                           }else{
                                               event.preventdefault();
-                                          }"><i class="fa fa-trash"></i></button>
+                                          }">delete</button>
                                          
                                        
                                          
