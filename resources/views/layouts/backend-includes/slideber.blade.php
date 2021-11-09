@@ -65,25 +65,25 @@
     <i class="fas fa-gifts"></i>
         <span>Holiday</span></a>
 </li>
-<!-- <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
         aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-user"></i>
-        <span>Attendence</span>
+        <span>Leave</span>
     </a>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
          
-            <a class="collapse-item" href="{{route('profile.create')}}">Mark Attendence</a>
-            <a class="collapse-item" href="{{route('profile.index')}}">View Attendence</a>
+            <a class="collapse-item" href="{{route('leave.index')}}">Leave Request</a>
+            <a class="collapse-item" href="{{route('leave_type.index')}}">Leave type</a>
     
            
         </div>
     </div>
-</li> -->
+</li>
 
 <!-- Divider -->
-<hr class="sidebar-divider">
+<!-- <hr class="sidebar-divider"> -->
 
 <!-- Heading -->
 
@@ -96,11 +96,11 @@
 </li>
 
 <!-- Nav Item - Charts -->
-<li class="nav-item">
+<!-- <li class="nav-item">
     <a class="nav-link" href="{{route('leave.index')}}">
         <i class="fas fa-fw fa-chart-area"></i>
         <span>Leave request</span></a>
-</li>
+</li> -->
 
 <!-- Nav Item - Tables -->
 <li class="nav-item">
@@ -108,7 +108,11 @@
         <i class="fas fa-fw fa-table"></i>
         <span>File management</span></a>
 </li>
-
+<li class="nav-item">
+    <a class="nav-link" href="{{url('alluser/attendence')}}">
+        <i class="fas fa-fw fa-table"></i>
+        <span>Attendence</span></a>
+</li>
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">
 

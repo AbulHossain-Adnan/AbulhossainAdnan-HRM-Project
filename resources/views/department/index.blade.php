@@ -132,7 +132,7 @@ e.preventDefault();
 let formdata = new FormData($('#formdata')[0]);
 
 $.ajax({
-type:'POST',
+type:"POST",
 datatype:'json',
 data:formdata,
 url:"/department",

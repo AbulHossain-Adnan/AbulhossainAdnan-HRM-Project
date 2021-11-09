@@ -257,7 +257,7 @@
             <div class="container-fluid">
               <!-- Page Heading -->
               <h1 class="h3 mb-2 text-gray-800">
-              <a class="btn btn-success btn-bg" href="{{route('employeefile.create')}}"><i class="fas fa-user"></i>Add Epmloyee file+</a>
+              <a class="btn btn-success btn-sm" href="{{route('employeefile.create')}}"><i class="fas fa-user"></i>Add Epmloyee file+</a>
               <a href="#"></a>
               </h1>
               

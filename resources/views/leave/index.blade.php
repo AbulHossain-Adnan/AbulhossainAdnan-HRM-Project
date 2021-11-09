@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SB Admin 2 - Tables</title>
+    <title>Employee</title>
     <!-- Custom fonts for this template -->
     <link href="{{asset('Backend/File')}}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -298,7 +298,7 @@
                             {{$leave->enddate}}
                           </td>
                           <td>{{$leave->leavetype}}</td>
-                          <td>{{$leave->leavereasion}}</td>
+                          <td>{{$leave->leavereason}}</td>
                           <td>{{$leave->created_at->format('d/m/Y')}}</td>
                           <td>
                             
@@ -417,47 +417,43 @@
             <div class="modal-body">
              <form>
   <div class="form-group row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">User_Name:</label>
-    <div class="col-sm-10">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Name*</label>
+    <div class="col-sm-8 m-auto">
       <input type="text" readonly class="form-control" id="namee" >
     </div>
   </div>
   <div class="form-group row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">User_Email::</label>
-    <div class="col-sm-10">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Email*</label>
+    <div class="col-sm-8 m-auto">
       <input type="text" readonly class="form-control" id="email" >
     </div>
   </div>
     <div class="form-group row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">User_Id::</label>
-    <div class="col-sm-10">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Id*</label>
+    <div class="col-sm-8 m-auto">
       <input type="text" readonly class="form-control" id="user_id" >
     </div>
   </div>
   <div class="form-group row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">Leave_Type::</label>
-    <div class="col-sm-10">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Type*</label>
+    <div class="col-sm-8 m-auto">
       <input type="text" readonly class="form-control" id="leave_type" >
     </div>
   </div>
    <div class="form-group row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">Leave_Reason</label>
-    <div class="col-sm-10">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Reason*</label>
+    <div class="col-sm-8 m-auto">
       <input type="text" readonly class="form-control" id="leave_reason" >
     </div>
   </div>
-   <div class="form-group row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">Leave_Time</label>
-    <div class="col-sm-10">
-      <input type="text" readonly class="form-control" id="name" >
+     <div class="form-group row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">day*</label>
+    <div class="col-sm-8 m-auto">
+      <input type="text" readonly class="form-control" id="half" >
     </div>
   </div>
-   <div class="form-group row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">Status</label>
-    <div class="col-sm-10">
-      <input type="text" readonly class="form-control-plaintext" id="name" >
-    </div>
-  </div>
+
+
   
 </form>
             </div>
@@ -481,9 +477,14 @@
     success:function(response){
     console.log(response.user.name)
     $('#namee').val(response.user.name)
+    $('#user_id').val(response.user_id)
     $('#email').val(response.user.email)
     $('#leave_type').val(response.leavetype)
-    $('#leave_reason').val(response.leavereasion)
+    $('#leave_reason').val(response.leavereason)
+    (response.half_day ==1 
+      ?$('#half').val('Half_Day')
+      :$('#half').val('Full_Day')
+      )
    
 
 

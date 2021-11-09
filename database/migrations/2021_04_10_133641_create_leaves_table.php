@@ -17,10 +17,12 @@ class CreateLeavesTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->boolean('status')->default(0)->nullable();
-            $table->datetime('startdate');
-            $table->datetime('enddate')->nullable();
+            $table->date('startdate');
+            $table->date('enddate')->nullable();
             $table->string('leavetype');
-            $table->string('leavereasion');
+            $table->string('leavereason');
+            $table->integer('half_day')->nullable();
+
             $table->timestamps();
         });
     }

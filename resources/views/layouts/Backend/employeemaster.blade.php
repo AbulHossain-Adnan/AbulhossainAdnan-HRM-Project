@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template -->
     <link href="{{asset('Backend/File')}}/css/sb-admin-2.min.css" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <!-- Custom styles for this page -->
     <link href="{{asset('Backend/File')}}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
@@ -675,9 +675,29 @@
 
     <!-- Page level custom scripts -->
     <script src="{{asset('Backend/File')}}/js/demo/datatables-demo.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-
-    @include('sweetalert::alert')
+<script>
+    @if(Session::has('message'))
+                var type="{{Session::get('alert-type','success')}}"
+                switch(type){
+                    case 'info':
+                         toastr.info("{{ Session::get('message') }}");
+                         break;
+                    case 'success':
+                        toastr.success("{{ Session::get('message') }}");
+                        break;
+                    case 'warning':
+                       toastr.warning("{{ Session::get('message') }}");
+                        break;
+                    case 'error':
+                        toastr.error("{{ Session::get('message') }}");
+                        break;
+                }
+              @endif
+  </script>
+    <!-- @include('sweetalert::alert') -->
+    
 </body>
 
 </html>

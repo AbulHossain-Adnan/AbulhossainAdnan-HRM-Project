@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+  
+  <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -8,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <title>SB Admin 2 - Tables</title>
 
@@ -19,7 +21,7 @@
 
     <!-- Custom styles for this template -->
     <link href="{{asset('Backend/File')}}/css/sb-admin-2.min.css" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <!-- Custom styles for this page -->
     <link href="{{asset('Backend/File')}}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
@@ -58,7 +60,7 @@
         
       
           <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item">
+          <li class="nav-item ">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                   aria-expanded="true" aria-controls="collapseTwo">
                   <i class="fas fa-fw fa-cog"></i>
@@ -66,9 +68,12 @@
               </a>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                   <div class="bg-white py-2 collapse-inner rounded">
-                      {{-- <a class="collapse-item" href="{{route('user.create')}}">user-create</a>
-                      <a class="collapse-item" href="{{route('user.index')}}">user-edit</a> --}}
+                     
+                    
                       <a class="collapse-item" href="{{route('leave.create')}}">Leave Request++</a>
+                    <!--   <a class="collapse-item" data-toggle="modal" data-target=".bd-example-modal-lg" id="leaveapply" href="">Leave apply</a> -->
+
+
                       <a class="collapse-item" href="{{route('leave.index')}}">Leave-list</a>
 
                   </div>
@@ -76,17 +81,20 @@
           </li>
       
           <!-- Nav Item - Utilities Collapse Menu -->
-         <li class="nav-item active">
+         <li class="nav-item ">
        
           <a class="nav-link" href="{{route('employeefile.index')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>File management</span></a>
     </li>
       
-          <!-- Divider -->
-          <hr class="sidebar-divider">
+     
       
-          <!-- Heading -->
+          <li class="nav-item ">
+        <a class="nav-link" href="{{url('/attendence')}}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Attendense</span></a>
+    </li> 
           
       
           <!-- Nav Item - Pages Collapse Menu -->
@@ -377,7 +385,8 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">
-                      <a class="btn btn-success btn-sm" href="{{route('leave.create')}}">Leave request++</a>
+                      <a class="btn btn-success btn-sm"  href="{{route('leave.create')}}">Leave request++</a>
+                      <!--  <a class="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" href="{{route('leave.create')}}">Leave apply</a> -->
                       <a href="#"></a>
                     </h1>
                    
@@ -419,7 +428,7 @@
                                         {{$leave->enddate}}
                                         </td>
                                         <td>{{$leave->leavetype}}</td>
-                                        <td>{{$leave->leavereasion}}</td>
+                                        <td>{{$leave->leavereason}}</td>
                                         <td>{{$leave->created_at->format('d/m/Y')}}</td>
                         
                                         <td>
@@ -440,7 +449,7 @@
                                       
                                         
                                          
-                                          <a class="btn btn-primary btn-sm" href="{{ route('leave.show',$leave->id) }}">edit/view</a>
+                                          
                                           <form id="delete-form.{{$leave->id}}" action="{{route('leave.destroy',$leave->id)}}" method="POST" style="display:none;">
                                             @csrf
                                             @method('DELETE')
@@ -531,9 +540,144 @@
 
     <!-- Page level custom scripts -->
     <script src="{{asset('Backend/File')}}/js/demo/datatables-demo.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 
     @include('sweetalert::alert')
-</body>
 
+
+    
+<!-- Large modal -->
+
+
+<div class="modal fade bd-example-modal-lg" id="leavemodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+<div class="card  mb-3">
+  <div class="card-header text-white bg-success">Apply leave</div>
+  <div class="card-body">
+   
+     <div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-body">
+
+       <form>
+ 
+  <div class="form-row">
+    <div class="form-group col-md-3">
+     
+      <input type="date" class="form-control" value="leave date" name="date" placeholder="sdsdfssssssssssssssssssssssssssss" id="date">
+    </div>
+    <div class="form-group col-md-3">
+    
+      <select value="sdfsd" id="leave_type" nane="leave_type" class="form-control">
+        <option selected>leave type</option>
+        <option>...</option>
+      </select>
+    </div>
+   
+     
+      <div class="form-group col-md-1">
+            <label class="ckbox">
+              <input type="checkbox" name="half" id="half" value="1">
+              <span>Half</span>
+            </label>
+            </div><!-- col-4 -->
+   
+    <div class="form-group col-md-5">
+     
+      <input type="text" class="form-control" placeholder="Rreason" id="reason">
+    </div>
+  </div>
+  
+  <button type="button" onclick="addleave({{Auth()->id()}})" class="btn btn-success btn-sm">ADD MORE+</button>
+</form>
+      </div>
+    </div>
+  </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+  </div>
+</div>
+</div>
+
+<!-- Button trigger modal -->
+
+
+
+
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('body').on('click','#leaveapply', function(){
+          
+        })
+      })
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript">
+      function addleave(id){
+        var id=id;
+        var date=$('#date').val();
+        var leave_type=$('#leave_type').val();
+        var half=$('#half').val();
+        var reason=$('#reason').val();
+        $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+        $.ajax({
+          type:"POST",
+          datatype:'json',
+          url:"/add/leave",
+          data:{id:id,date:date,leave_type:leave_type,half:half,reason:reason},
+          success:function(response){
+            console.log(response)
+
+          }
+        })
+      }
+    </script>
+</body>
+ <script>
+    @if(Session::has('message'))
+                var type="{{Session::get('alert-type','success')}}"
+                switch(type){
+                    case 'info':
+                         toastr.info("{{ Session::get('message') }}");
+                         break;
+                    case 'success':
+                        toastr.success("{{ Session::get('message') }}");
+                        break;
+                    case 'warning':
+                       toastr.warning("{{ Session::get('message') }}");
+                        break;
+                    case 'error':
+                        toastr.error("{{ Session::get('message') }}");
+                        break;
+                }
+              @endif
+  </script>
 </html>
