@@ -395,8 +395,12 @@
   <div class="col-sm-6">
     <div class="card">
       <div class="card-body">
-       <button class="btn btn-primary" id="clockinn" type="submit" >Clock In</button>
-       <input type="text" id="clockid" name="clockin">
+     
+            <div id="clockindiv">
+             <button class="btn btn-primary" id="clockinn" type="submit" >Clock In</button>                   
+                          
+       <input type="text" id="clockid" name="clockin">      
+       </div>
         </form>
       </div>
     </div>
@@ -443,7 +447,7 @@
 																	<th scope="col">Clockin</th>
 																	<th scope="col">Clockout</th>
 																	<th scope="col">Working Time(8 hours)</th>
-																	
+
 																</tr>
 															</thead>
 															<tbody>
@@ -536,9 +540,19 @@
 			processData: false,
 			data:formdata,
 			success:function(response){
-				console.log(response)
-				$('#clockid').val(response.clock_in)
-				$('#clockinn').hide()
+
+				
+$('#clockindiv').html(` 
+	 <button class="btn btn-primary" id="clockinn" type="submit" >Clock In</button>                   
+                          
+       <input type="text" id="clockid" name="clockin" value="${response.clock_in}">
+
+	 `)
+
+
+
+				// $('#clockid').val(response.clock_in)
+			
 				allattendence()
 				const Toast = Swal.mixin({
 toast: true,

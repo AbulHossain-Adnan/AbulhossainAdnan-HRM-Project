@@ -6,7 +6,7 @@
     <div class="card">
       <div class="card-body">
         <div class="card">
-          <div class="card-header text-white bg-primary">Department List</div>
+          <div class="card-header text-white bg-primary">Expense List</div>
           <div class="card-body">
             
             <div class="row">
@@ -45,7 +45,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Expense</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><h2>Expense</h2></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
@@ -54,40 +54,40 @@
         <form id="formdata" action="" method="post" enctype="multipart/form-data">
           @csrf
           <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">Item Name: *</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="itemnameid" name="item_name" placeholder="Enter Item Name">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">ItemName:</label>
+            <div class="col-sm-8 m-auto">
+              <input type="text" class="form-control" id="itemnameid" name="item_name" placeholder="Item Name">
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">Purchase From: </label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="purchaseformid" name="purchase_from" placeholder="Enter Purchase From">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">PurchaseFrom: </label>
+            <div class="col-sm-8 m-auto">
+              <input type="text" class="form-control" id="purchaseformid" name="purchase_from" placeholder="Purchase From">
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">Date**</label>
-            <div class="col-sm-10">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Date</label>
+            <div class="col-sm-8 m-auto">
               <input type="date" class="form-control" id="dateid" name="purchase_date" placeholder="Enter Date ">
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">Amount price:* </label>
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Amountprice</label>
             
             
-            <div class="col-sm-10">
+            <div class="col-sm-8 m-auto">
               <input type="text" class="form-control" id="amount_priceid" name="amount_price" placeholder="Enter Amount">
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">Attach file*</label>
-            <div class="col-sm-8">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Attachfile</label>
+            <div class="col-sm-8 m-auto">
               <input type="file" class="form-control" id="fileid" name="file" placeholder="title">
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
           </div>
         </form>
       </div>

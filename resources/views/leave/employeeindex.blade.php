@@ -60,35 +60,22 @@
         
       
           <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item ">
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                  aria-expanded="true" aria-controls="collapseTwo">
-                  <i class="fas fa-fw fa-cog"></i>
-                  <span>Leave</span>
-              </a>
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                  <div class="bg-white py-2 collapse-inner rounded">
-                     
-                    
-                      <a class="collapse-item" href="{{route('leave.create')}}">Leave Request++</a>
-                    <!--   <a class="collapse-item" data-toggle="modal" data-target=".bd-example-modal-lg" id="leaveapply" href="">Leave apply</a> -->
-
-
-                      <a class="collapse-item" href="{{route('leave.index')}}">Leave-list</a>
-
-                  </div>
-              </div>
-          </li>
+       
       
           <!-- Nav Item - Utilities Collapse Menu -->
          <li class="nav-item ">
+       
+          <a class="nav-link" href="{{route('leave.index')}}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Leave application</span></a>
+    </li>
+      
+      <li class="nav-item ">
        
           <a class="nav-link" href="{{route('employeefile.index')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>File management</span></a>
     </li>
-      
-     
       
           <li class="nav-item ">
         <a class="nav-link" href="{{url('/attendence')}}">
@@ -385,8 +372,8 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">
-                      <a class="btn btn-success btn-sm"  href="{{route('leave.create')}}">Leave request++</a>
-                      <!--  <a class="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" href="{{route('leave.create')}}">Leave apply</a> -->
+                      
+                       <a class="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" href="{{route('leave.create')}}">Leave apply</a>
                       <a href="#"></a>
                     </h1>
                    
@@ -403,15 +390,13 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                       <tr>
-                                        <th scope="col">id</th>
-                                        <th scope="col">start leave</th>
-                                        <th scope="col">end leave</th>
-
+                                        <th scope="col">sl</th>
+                                        <th scope="col">date</th>
                                         <th scope="col">leave type</th>
                                         <th scope="col">reasion</th>
-                                        <th scope="col">Apply date</th>
+                                       
+                                      
                                         <th scope="col">Status</th>
-                                        
                                         <th scope="col">action</th>
                                         
                                       </tr>
@@ -422,14 +407,15 @@
                                       <tr>
                                         <td>{{$loop->index+1}}</td>
                                         <td>
-                                        {{$leave->startdate}}
+                                        {{$leave->date}}
                                         </td>
-                                        <td>
-                                        {{$leave->enddate}}
+                                         <td>
+                                        {{$leave->leavetype}}
                                         </td>
+                                        
                                         <td>{{$leave->leavetype}}</td>
                                         <td>{{$leave->leavereason}}</td>
-                                        <td>{{$leave->created_at->format('d/m/Y')}}</td>
+                                        <td></td>
                         
                                         <td>
                                     
@@ -554,45 +540,50 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
-<div class="card  mb-3">
-  <div class="card-header text-white bg-success">Apply leave</div>
-  <div class="card-body">
+<div class="card  mb-3" >
+  <div class="card-header"><h2>Apply leave</h2></div>
+  <div class="card-body" style="border: 1px solid green;">
    
      <div class="row">
-  <div class="col-sm-12">
+  <div class="col-sm-12 " >
     <div class="card">
-      <div class="card-body">
+      <div class="card-body" >
 
-       <form>
- 
-  <div class="form-row">
+       <form action="{{route('leave.store')}}" method="post">
+ @csrf
+  <div class="form-row" id="leavebox">
     <div class="form-group col-md-3">
      
-      <input type="date" class="form-control" value="leave date" name="date" placeholder="sdsdfssssssssssssssssssssssssssss" id="date">
+      <input type="date" class="form-control" required="date" value="leave date" name="date[]" placeholder="" id="date">
     </div>
     <div class="form-group col-md-3">
     
-      <select value="sdfsd" id="leave_type" nane="leave_type" class="form-control">
+      <select value="sdfsd" id="leave_type" name="leave_type[]" required="leave_type" class="form-control">
         <option selected>leave type</option>
-        <option>...</option>
+        @foreach($leave_types as $leave)
+        <option value="{{$leave->leave_type}}">{{$leave->leave_type}}</option>
+        @endforeach
       </select>
     </div>
    
      
       <div class="form-group col-md-1">
             <label class="ckbox">
-              <input type="checkbox" name="half" id="half" value="1">
+              <input type="checkbox" name="half[]" id="half" value="1">
               <span>Half</span>
             </label>
             </div><!-- col-4 -->
    
     <div class="form-group col-md-5">
-     
-      <input type="text" class="form-control" placeholder="Rreason" id="reason">
+      <input type="text" class="form-control" required="reason" name="reason[]" placeholder="Rreason" id="reason">
     </div>
   </div>
   
   <button type="button" onclick="addleave({{Auth()->id()}})" class="btn btn-success btn-sm">ADD MORE+</button>
+  <div class="form-group col-md-3 m-auto">
+    
+     <button type="submit"  class="btn btn-success btn-sm">Submit+</button>
+    </div>
 </form>
       </div>
     </div>
@@ -630,13 +621,47 @@
 
 
 
-
-
-
-
-
-
     <script type="text/javascript">
+      function addleave(id){
+  $('#leavebox').append(`  
+ 
+  <div class="form-group col-md-3">
+     
+      <input type="date" class="form-control" value="leave date" required="date" name="date[]" placeholder="" id="date">
+    </div>
+    <div class="form-group col-md-3">
+    
+      <select value="sdfsd" id="leave_type" required="leave_type" name="leave_type[]" class="form-control">
+        <option selected>leave type</option>
+        @foreach($leave_types as $leave)
+        <option value="{{$leave->leave_type}}">{{$leave->leave_type}}</option>
+        @endforeach
+      </select>
+    </div>
+   
+     
+      <div class="form-group col-md-1">
+            <label class="ckbox">
+              <input type="checkbox" name="half[]" id="half" value="1">
+              <span>Half</span>
+            </label>
+            </div><!-- col-4 -->
+   
+    <div class="form-group col-md-5">
+      <input type="text" class="form-control" required="reason" name="reason[]" placeholder="Rreason" id="reason">
+    </div>
+  </div>
+  
+ 
+ `)
+      }
+    </script>
+
+
+
+
+
+<!--     <script type="text/javascript">
       function addleave(id){
         var id=id;
         var date=$('#date').val();
@@ -659,7 +684,7 @@
           }
         })
       }
-    </script>
+    </script> -->
 </body>
  <script>
     @if(Session::has('message'))

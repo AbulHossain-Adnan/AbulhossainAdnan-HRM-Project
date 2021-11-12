@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
 use App\Attendence;
 use Auth;
 use Carbon\Carbon;
 use App\Profile;
+use Session;
 use DateTime;
 
 class AttendenceController extends Controller
@@ -19,7 +20,7 @@ class AttendenceController extends Controller
     }
     public function clockin(Request $request){
 
-
+session()->put('test', 'adnan');
 
 
 $date1 = new DateTime("06:00:00");
@@ -66,6 +67,9 @@ $totalYearsDiff   = $totalSecondsDiff/60/60/24/365; //1.35
 
     }
     public function clockout($id){
+       if(session::has('test')){
+session::forget('test');
+}
        
          date_default_timezone_set("Asia/Dhaka");
           $data=Attendence::where('user_id',$id)->OrderBy('created_at','DESC')->first();

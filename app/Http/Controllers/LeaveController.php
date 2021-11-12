@@ -9,6 +9,7 @@ use App\Leave_type;
 
 use Carbon\Carbon;
 use Auth;
+use DB;
 
 class LeaveController extends Controller
 {
@@ -24,6 +25,7 @@ class LeaveController extends Controller
         else{
             return view('leave.employeeindex',[
                 'leaves'=>Auth::user()->leaves,
+                'leave_types'=>Leave_type::all(),
             ]);
 
             
@@ -44,40 +46,60 @@ class LeaveController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-        // die();
-        
-                $request->validate([
-            'startdate'=>'required',
-            'leave_type'=>'required',
-            'lreasion'=>'required',
-        ]);
 
 
   $Leave_type_id=$request->leave_type;
 
-  $leave_type_count=Leave::where('user_id',$request->user_id)->where('leavetype',$Leave_type_id)->count();
+  $leave_type_count=Leave::where('user_id',Auth::id())->where('leavetype',$Leave_type_id)->count();
 $leave_type=Leave_type::where('leave_type',$Leave_type_id)->first();
 $leave_number=$leave_type->leave_number;
 
 if($leave_type_count < $leave_number){
-    Leave::insert([
-            'startdate'=>$request->startdate,
-            'enddate'=>$request->enddate, 
-            'user_id'=>$request->user_id,
-            'leavetype'=>$request->leave_type,
-            'leavereason'=>$request->lreasion,
-            'half_day'=>$request->half_day,
+  $leave_type=$request->leave_type;
+$date=$request->date;
+$day=$request->half;
+$reason=$request->reason;
+if($day){
+  for($i=0; $i < count($leave_type); $i++) {
+    $datasave=[ 
+        'user_id'=>Auth::id(),
+        'date'=>$date[$i],
+        'leavetype'=>$leave_type[$i],
+        'leavereason'=>$reason[$i],
+        'day'=>$day[$i],
 
-            'created_at'=>Carbon::now(),
-        ]);
+
+    ];
+    DB::table('leaves')->insert($datasave);
+
+}
     toast('Your leave request applyed Successfully','success');
         return redirect()->route('leave.index');
+
+  
+}
+else{
+   for($i=0; $i < count($leave_type); $i++) {
+    $datasave=[ 
+        'user_id'=>Auth::id(),
+        'date'=>$date[$i],
+        'leavetype'=>$leave_type[$i],
+        'leavereason'=>$reason[$i],
+
+
+    ];
+    DB::table('leaves')->insert($datasave);
+
+}
+    toast('Your leave request applyed Successfully','success');
+        return redirect()->route('leave.index');  
+}
 }
 else{
     toast('You dont have this leave type','error');
     return back();
 }
+
 
 
       
